@@ -17,7 +17,7 @@
 6. [显示精灵(Sprites)](#displaying)
     1. [使用别名](#usingaliases)
     2. [进一步了解加载](#alittlemoreaboutloadingthings)
-        1. [从普通的JavaScript图片对象或Canvas创建精灵](#makeaspritefromanordinaryjavascriptimageobject)
+        1. [从普通的JavaScript图片对象或Canvas中创建精灵](#makeaspritefromanordinaryjavascriptimageobject)
         2. [为已加载的文件命名](#assigninganametoaloadingfile)
         3. [监控加载进度](#monitoringloadprogress)
         4. [更多关于Pixi的加载器](#moreaboutpixisloader)
@@ -27,93 +27,42 @@
 
 <a id='introduction'></a>
 ## **介绍**
-Pixi’s is an extremely fast 2D sprite rendering engine. What does that
-mean? It means that it helps you to display, animate and manage
-interactive graphics so that it's easy for you to make games and
-applications using
-JavaScript and other HTML5 technologies. It has a sensible,
-uncluttered API and includes many useful features, like supporting
-texture atlases and providing a streamlined system for animating
-sprites (interactive images). It also gives you a complete scene graph so that you can
-create hierarchies of nested sprites (sprites inside sprites), as well
-as letting you attach mouse and touch events directly to sprites. And,
-most
-importantly, Pixi gets out of your way so that you can use as much or
-as little of it as you want to, adapt it to your personal coding
-style, and integrate it seamlessly with other useful frameworks.
+Pixi是一个极速2D精灵图渲染引擎。这意味着什么？这意味着它可以帮你展示，设置动画以及管理交互性的图形，更容易的使用JavaScript和HTML5技术制作游戏和应用程序。它有合理整齐的API，包括很多有用的特性，像是支持纹理地图集，为精灵图动画(互动图像)提供一个简化系统。它也提供给你一个完整的场景图以便你创建层次嵌套的精灵图（精灵图包含着精灵图），还可以让你直接在精灵图上绑定鼠标和触摸事件。最重要的是，Pixi独立于你的方法，以便你可以根据需要或多或少的使用它，使它适应你个人的编码风格并且和其他有用的框架无缝结合。
 
-Pixi’s API is actually a refinement of a well-worn and battle-tested
-API pioneered by Macromedia/Adobe Flash. Old-skool Flash developers
-will feel right at home. Other current sprite rendering frameworks use
-a similar API: CreateJS, Starling, Sparrow and Apple’s SpriteKit. The
-strength of Pixi’s API is that it’s general-purpose: it’s not a game
-engine. That’s good because it gives you total expressive freedom to make anything you like, and wrap your own custom game engine around it.
+Pixi的API事实上是对Macromedia/Adobe Flash提出的陈旧的久经测试的API的精化。原本的Flash开发者会觉得得心应手。目前其他的精灵图渲染框架使用一种类似的API：CreateJS, Starling, Sparrow和苹果的SpriteKit。Pixi API的长处在于它是通用的：它不是一个游戏引擎。这一点的好处是，它给了你完全的自由去做你喜欢的任何事，并且可以和你自己的定制的游戏引擎整合在一起。
 
-In this tutorial you’re going to find out how to combine Pixi’s
-powerful image rendering features and scene graph to start making
-games. You’re also going to learn how to prepare your game graphics
-with a texture atlas, how to make particle effects using the Proton
-particle engine, and how to integrate Pixi into your own custom game
-engine. But Pixi isn't just for games - you can use these same
-techniques to create any interactive media applications. That means
-apps for phones!
+在这份教程中，你会明白怎样结合Pixi强大的图片渲染特性和场景图来开始制作游戏。你也会学习怎样使用纹理地图集准备你的游戏图像，怎样使用Proton粒子引擎制造颗粒效果，以及怎样将Pixi整合到你自己的定制的游戏引擎中。但是Pixi并不只是针对游戏的——你可以使用这些技术创建任何交互式的多媒体应用。这意味着手机app！
 
-What do you need to know before you get started with this tutorial?
+在开始学习本教程之前，您需要了解哪些内容？
 
-You should have a reasonable understanding of HTML and
-JavaScript. You don't have to be an expert, just an ambitious beginner
-with an eagerness to learn. If you don't know HTML and JavaScript, the
-best place to start learning it is this book:
+你应该对HTML和JavaScript有适当的理解。你不需要有多熟练，只需要做一个对学习有渴望的初学者。如果你不了解HTML和JavaScript，最好的开始学习的地方是这本书：
 
 [Foundation Game Design with HTML5 and JavaScript](http://www.apress.com/9781430247166)
 
-I know for a fact that it's the best book, because I wrote it!
+我肯定这是一本好书，因为是我写的！
 
-There are also some good internet resources to help get you started:
+这也有一些好的网络资源帮助你开始学习：
 
-[Khan Academy: Computer
-Programming](http://www.khanacademy.org/computing/cs)
+[Khan Academy: Computer Programming](http://www.khanacademy.org/computing/cs)
 
-[Code Academy:
-JavaScript](http://www.codecademy.com/tracks/javascript)
+[Code Academy: JavaScript](http://www.codecademy.com/tracks/javascript)
 
-Choose whichever best suits your learning style.
+选择最适合你的学习方式。
 
-Ok, got it?
-Do you know what JavaScript variables, functions, arrays and objects are and how to
-use them? Do you know what [JSON data
-files](http://www.copterlabs.com/blog/json-what-it-is-how-it-works-how-to-use-it/)
-are? Have you used the [Canvas Drawing API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Drawing_graphics_with_canvas)?
+好了，明白了么？
+Do you know what JavaScript variables, functions, arrays and objects are and how to use them? Do you know what [JSON data files](http://www.copterlabs.com/blog/json-what-it-is-how-it-works-how-to-use-it/) are? Have you used the [Canvas Drawing API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Drawing_graphics_with_canvas)?
 
-To use Pixi, you'll also need to run a webserver in your root project
-directory. Do you know what a webserver is and
-how to launch one in your project folder? The best way is to use
-[node.js](http://nodejs.org) and then to install the extremely easy to use
-[http-server](https://github.com/nodeapps/http-server). However, you need to be comfortable working with the Unix
-command line if you want to do that. You can learn how to use
-Unix [in this
-video](https://www.youtube.com/watch?feature=player_embedded&v=cX9ASUE3YAQ)
-and, when you're finished, follow it with [this
-video](https://www.youtube.com/watch?v=INk0ATBbclc). You should learn
-how to use Unix - it only takes a couple of hours to learn and is a
-really fun and easy way to interact with your computer.
+To use Pixi, you'll also need to run a webserver in your root project directory. Do you know what a webserver is and how to launch one in your project folder? The best way is to use [node.js](http://nodejs.org) and then to install the extremely easy to use [http-server](https://github.com/nodeapps/http-server). However, you need to be comfortable working with the Unix command line if you want to do that. You can learn how to use Unix [in this video](https://www.youtube.com/watch?feature=player_embedded&v=cX9ASUE3YAQ) and, when you're finished, follow it with [this video](https://www.youtube.com/watch?v=INk0ATBbclc). You should learn how to use Unix - it only takes a couple of hours to learn and is a really fun and easy way to interact with your computer.
 
-But if you don't want to mess around with the command line just yet, try the Mongoose
-webserver:
+But if you don't want to mess around with the command line just yet, try the Mongoose webserver:
 
 [Mongoose](http://cesanta.com/mongoose.shtml)
 
-Or, just write your all your code using the excellent [Brackets text
-editor](http://brackets.io). Brackets automatically launches a webserver
-and browser for you when you click the lightening bolt button in its
-main workspace.
+Or, just write your all your code using the excellent [Brackets text editor](http://brackets.io). Brackets automatically launches a webserver and browser for you when you click the lightening bolt button in its main workspace.
 
 Now if you think you're ready, read on!
 
-(Request to readers: this is a *living document*. If you have any
-questions about specific details or need any of the content clarified, please
-create an **issue** in this GitHub repository and I'll update the text
-with more information.)
+(Request to readers: this is a *living document*. If you have any questions about specific details or need any of the content clarified, please create an **issue** in this GitHub repository and I'll update the text with more information.)
 
 <a id='settingup'></a>
 ## **安装**
@@ -654,7 +603,7 @@ aware of, even if you don't use them on a regular basis. Let's
 look at some of the most useful.
 
 <a id='makeaspritefromanordinaryjavascriptimageobject'></a>
-#### 1)从普通的JavaScript图片对象或Canvas创建精灵
+#### 1)从普通的JavaScript图片对象或Canvas中创建精灵
 
 For optimization and efficiency it’s always best to make a sprite from
 a texture that’s been pre-loaded into Pixi’s texture cache. But if for
