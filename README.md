@@ -49,90 +49,74 @@ Pixi的API事实上是对Macromedia/Adobe Flash提出的陈旧的久经测试的
 
 选择最适合你的学习方式。
 
-好了，明白了么？
-Do you know what JavaScript variables, functions, arrays and objects are and how to use them? Do you know what [JSON data files](http://www.copterlabs.com/blog/json-what-it-is-how-it-works-how-to-use-it/) are? Have you used the [Canvas Drawing API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Drawing_graphics_with_canvas)?
+好了，明白了么？你知道JavaScript的变量，函数，数组和对象都是什么并且怎样使用它们吗？你知道[JSON数据格式](http://www.copterlabs.com/blog/json-what-it-is-how-it-works-how-to-use-it/)是什么吗？你使用过[Canvas绘图API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Drawing_graphics_with_canvas)吗？
 
-To use Pixi, you'll also need to run a webserver in your root project directory. Do you know what a webserver is and how to launch one in your project folder? The best way is to use [node.js](http://nodejs.org) and then to install the extremely easy to use [http-server](https://github.com/nodeapps/http-server). However, you need to be comfortable working with the Unix command line if you want to do that. You can learn how to use Unix [in this video](https://www.youtube.com/watch?feature=player_embedded&v=cX9ASUE3YAQ) and, when you're finished, follow it with [this video](https://www.youtube.com/watch?v=INk0ATBbclc). You should learn how to use Unix - it only takes a couple of hours to learn and is a really fun and easy way to interact with your computer.
+使用Pixi，你也需要在你项目根目录运行一个web服务器。你知道web是什么并且如何在你的项目文件夹里发起吗？最好的方法是使用[node.js](http://nodejs.org)然后接下来安装[http-server](https://github.com/nodeapps/http-server)也是十分容易的。然而，如果你想要这样做，需要在Unix的命令行环境舒适的工作。你可以在[这个视频](https://www.youtube.com/watch?feature=player_embedded&v=cX9ASUE3YAQ)中学习Unix，完成以后接着学习[这个视频](https://www.youtube.com/watch?v=INk0ATBbclc)。怎样使用Unix是值得一学的——它只会花费你几个小时并且真的是一个有趣且简单的与你的电脑进行交互的方式。
 
-But if you don't want to mess around with the command line just yet, try the Mongoose webserver:
+但是如果你现在还不想在命令行上浪费时间，可以尝试一下Mongoose web服务器：
 
 [Mongoose](http://cesanta.com/mongoose.shtml)
 
-Or, just write your all your code using the excellent [Brackets text editor](http://brackets.io). Brackets automatically launches a webserver and browser for you when you click the lightening bolt button in its main workspace.
+或者，只使用出色的[Brackets text editor](http://brackets.io)来写你的所有代码。当你在它的主要工作区点击闪电按钮，Brackets会为你自行启动一个web服务器和浏览器。
 
-Now if you think you're ready, read on!
+现在，如果你认为你已经准备好了，请继续读下去！
 
-(Request to readers: this is a *living document*. If you have any questions about specific details or need any of the content clarified, please create an **issue** in this GitHub repository and I'll update the text with more information.)
+(读者要求：这是一个*在线文档*。如果你对特别的细节有任何疑问或者需要任何内容的相关解释，请在这个GitHub仓库中创建一个**issue**，我会在这篇文档上更新更多的信息。)
 
 <a id='settingup'></a>
 ## **安装**
-Before you start writing any code, create a folder for your project, and launch a
-webserver in the project's root directory. If you aren't running a
-webserver, Pixi won't work.
+在你开始写代码之前，为你的项目创建一个文件夹，并且在这个项目的根目录启动一个web服务器。如果你没有运行一个web服务器，Pixi是不会工作的。
 
-Next, you need to install Pixi. There are two ways to do it: the
-**simple** way, with **Git** or with **Gulp and Node**. 
+接下来，你需要安装Pixi。这里提供两种方法：使用**Git**或者**Gulp和Node**的**简单**方法。
 
 <a id='installingpixithesimpleway'></a>
 ### 安装Pixi的简单方法
 
-The version used for this introduction is **v4.0.0**
-and you can find `pixi.min.js` file on [Pixi's release page for v4.0.0](https://github.com/pixijs/pixi.js/releases/tag/v4.0.0).
-Or you can get the latest version from [Pixi's main release page](https://github.com/pixijs/pixi.js/releases).
+这篇教程使用的版本是**v4.0.0**，你可以在[Pixi's release page for v4.0.0](https://github.com/pixijs/pixi.js/releases/tag/v4.0.0)中找到`pixi.min.js`文件。或者你也可以在[Pixi's main release page](https://github.com/pixijs/pixi.js/releases)中获取最新版本。
 
-This one file is all you need to use Pixi. You can ignore all the
-other files in the repository: **you don't need them.**
+这个文件就是你使用Pixi所需要的全部。你可以忽视目录中的其他文件：**你不需要它们**。
 
-Next, create a basic HTML page, and use a
-`<script>` tag to link the
-`pixi.min.js` file that you've just downloaded. The `<script>` tag's `src`
-should be relative to your root directory where your webserver is
-running. Your `<script>` tag might look something like this:
+接下来，创建一个基本的HTML页面，然后使用`<script>`标签引用你刚刚下载的`pixi.min.js`文件。这个`<script>`标签的`src`应该是web服务器运行的根目录的相对路径。你的`<script>`标签看起来应该是这样的：
+
 ```html
 <script src="pixi.min.js"></script>
 ```
-Here's a basic HTML page that you could use to link Pixi and test that
-it's working:
+
+这是一个你可以用来引用Pixi并测试它工作的基本的HTML页面：
+
 ```html
 <!doctype html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>Hello World</title>
-</head>
-  <script src="pixi.min.js"></script>
-<body>
-  <script type="text/javascript">
-    var type = "WebGL"
-    if(!PIXI.utils.isWebGLSupported()){
-      type = "canvas"
-    }
-
-    PIXI.utils.sayHello(type)
-  </script>
-</body>
+    <head>
+        <meta charset="utf-8">
+        <title>Hello World</title>
+    </head>
+        <script src="pixi.min.js"></script>
+    <body>
+        <script type="text/javascript">
+            var type = "WebGL"
+            if(!PIXI.utils.isWebGLSupported()){
+                type = "canvas"
+            }
+            PIXI.utils.sayHello(type)
+        </script>
+    </body>
 </html>
 ```
 
-If Pixi is linking correctly,
-something like this will be displayed in your web browser's JavaScript console by default:
+如果Pixi正确引用，默认情况下，你web浏览器的JavaScript控制台会显示以下信息:
 ```
  Pixi.js 4.0.0 - ✰ WebGL ✰      http://www.pixijs.com/    ♥♥♥ 
 ```
 
-Now you can start working with Pixi!
+现在你可以通过Pixi开始工作啦！
 
 <a id='installingpixiwithgit'></a>
 ### 使用Git安装Pixi
 
-You can also use Git to install use Pixi. (What is **git**? If you don't know [you can find out
-here](https://github.com/kittykatattack/learningGit).) This has some advantages:
-you can just run `git pull origin master` from the command line to update Pixi to
-the latest version. And, if you think you've found a bug in Pixi, 
-you can fix it and submit a pull request to have the bug fix added to the main repository.
+你也可以通过Git来安装使用Pixi。（什么是**git**？如果你不知道，[你可以在这里弄清楚](https://github.com/kittykatattack/learningGit)。）有一些优势就是：你可以只在命令行运行`git pull origin master`把Pixi更新到最新版本。而且，如果你认为你在Pixi中发现了一个bug，你可以修复它并且提交一个修复bug的pull请求，添加到主仓库中。
 
-To clone the Pixi repository with Git,  `cd`
-into your root project directory and type:
+为了使用Git克隆Pixi仓库，`cd`进入到你项目的根目录然后输入：
 ```
 git clone git@github.com:pixijs/pixi.js.git
 ```
