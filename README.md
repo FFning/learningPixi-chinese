@@ -120,36 +120,20 @@ Pixi的API事实上是对Macromedia/Adobe Flash提出的陈旧的久经测试的
 ```
 git clone git@github.com:pixijs/pixi.js.git
 ```
-This automatically creates a folder called `pixi.js` and loads the **latest version** of Pixi into it.
-Keep in mind that this manual is tailored around *version 4.0.0*.
-To get this version simply checkout cloned `pixi.js` repository using tag like this:
+这将自动创建一个名为`pixi.js`的文件夹，并将最新版本的Pixi加载到其中。
+请记住，这个手册是在大约*4.0.0版本*时定制的。
+为了得到这个版本，只需像下面这样checkout克隆`pixi.js`库：
 ```
 git checkout tags/v4.0.0
 ```
 
-After Pixi is installed, create a basic HTML document, and use a
-`<script>` tag to include the
-`pixi.js` file from Pixi's `bin` folder. The `<script>` tag's `src`
-should be relative to your root directory where your webserver is
-running. Your `<script>` tag might look something like this:
+Pixi安装完成以后，创建一个基本的HTML文档，然后使用`<script>`标签将Pixi的`bin`目录的`pixi.js`文件包含进来。`<script>`便签的`src`应该是相对于你的webserver运行所在的根目录的相对路径。你的`<script>`便签可能是这样的：
 ```html
 <script src="pixi.js/bin/pixi.js"></script>
 ```
-(If you prefer, you could link to the `pixi.min.js` file instead as I
-suggested in the previous section. The
-minified file might actually run slightly faster, and it will
-certainly load faster. The advantage to using the
-un-minified plain JS file is that if the compiler thinks there's a bug in Pixi's
-source code, it will give you an error message that displays the questionable code
-in a readable format. This is useful while you're working on a
-project, because even if the bug isn't in Pixi, the error might give
-you a hint as to what's wrong with your own code.)
+(如果你喜欢，你可以链接`pixi.min.js`来替代我上一节中提过的`pixi.js`。被简化的文件实际上可能运行得稍微快一点，而且它肯定会更快地加载。使用非压缩的普通JS文件的优点是，如果编译器认为Pixi源代码有一个bug，那么它将提供给你一个错误消息，以可读格式显示有问题的代码。当您在进行一个项目时，这是很有用的，因为如果bug不在Pixi中，这个错误信息可能意味着你自己的代码有什么错误。)
 
-In this **Learning Pixi** repository (what you're reading now!) you'll find a folder called
-`examples`. Open it and you'll find a file called `helloWorld.html`.
-Assuming that the webserver is running in this repository's root directory, this is
-how the `helloWorld.html` file correctly links to Pixi and checks that it's
-working:
+在这个**Learning Pixi**(就是你正看的这个！)仓库中，你会看到一个命名为`examples`的文件夹。打开它以后你会看到一个叫`helloWorld.html`的文件。假设webserver正在仓库的根目录运行，这就是`helloWorld.html`这个文件是如何连接到Pixi并检查它是否正确工作的：
 ```html
 <!doctype html>
 <html>
@@ -162,7 +146,7 @@ working:
 </body>
 </html>
 ```
-If Pixi is linking correctly, something like this will be displayed in your web browser's JavaScript console by default:
+如果Pixi正确连接，你的web浏览器的JavaScript控制台会默认打印出：
 ```
  Pixi.js 4.0.0 - ✰ WebGL ✰      http://www.pixijs.com/    ♥♥♥ 
 ```
@@ -170,43 +154,32 @@ If Pixi is linking correctly, something like this will be displayed in your web 
 <a id='installingpixiwithnodeandgulp'></a>
 ### 使用Node和Gulp安装Pixi
 
-You can also install Pixi using [Node](https://nodejs.org) and [Gulp](http://gulpjs.com). If you need
-to do a custom build of Pixi to include or exclude certain features,
-this is the route you should take. [See Pixi's GitHub repository for
-details on how](https://github.com/GoodBoyDigital/pixi.js). But, in general
-there's no need to do this.
+你也可以使用[Node](https://nodejs.org)和[Gulp](http://gulpjs.com)来安装Pixi。如果你需要对Pixi进行定制，包含或去除默写特性，这就是你应该采用的方式。[看Pixi的GitHub仓库了解更多细节](https://github.com/GoodBoyDigital/pixi.js)。但是，一般来说没有这样做的必要。
 
 <a id='renderer'></a>
 ## **创建舞台(Stage)和渲染器(Renderer)**
 
-Now you can start using Pixi!
+现在你可以开始使用Pixi了！
 
-But how? 
+但是怎样用呢？
 
-The first step is to create a rectangular
-display area that you can start displaying images on. Pixi has a
-`renderer` object that creates this for you. It
-automatically generates an HTML `<canvas>` element and figures out how
-to display your images on the canvas. You then need to create a
-special Pixi `Container` object called the `stage`. As you'll see
-ahead, this stage object is going to be used as the root container
-that holds all the things you want Pixi to display. 
+第一步是创建一个矩形的展示区域来开始显示图片。Pixi有一个`renderer`对象可以做这件事。它会自动生成一个HTML`<canvas>`元素并且解决怎样在canvas中显示你的图片的问题。你接下来需要创建一个特殊的Pixi `Container`对象，`stage`。如你所见，这个stage对象将作为根容器，用来保存你需要Pixi展示的所有东西。
 
-Here’s the code you need to write to create a `renderer`
-and `stage`. Add this code to your HTML document between the `<script>` tags:
+这是你需要写的用来创建一个`renderer`和`stage`的代码。将这段代码加入到你的HTML文档的`<script>`标签之间：
 ```js
-//Create the renderer
+//创建renderer
 var renderer = PIXI.autoDetectRenderer(256, 256);
 
-//Add the canvas to the HTML document
+//在HTML文档中加入canvas
 document.body.appendChild(renderer.view);
 
-//Create a container object called the `stage`
+//创建一个叫做`stage`的container对象
 var stage = new PIXI.Container();
 
-//Tell the `renderer` to `render` the `stage`
+//告诉`renderer``render`这个`stage`
 renderer.render(stage);
 ```
+
 This is the most basic code you need write to get started using Pixi. 
 It produces a black 256 pixel by 256 pixel canvas element and adds it to your
 HTML document. Here's what this looks like in a browser when you run this code.
